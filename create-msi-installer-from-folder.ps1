@@ -13,7 +13,7 @@ param(
   [string]$HelpLink = "http://www.example.com",
   [string]$AboutLink = "http://www.example.com",
   [string]$DownloadLink = "http://www.example.com",
-  [boolean]$Desktop = $False
+  [switch]$Desktop = $False
 )
 
 function step{
@@ -55,10 +55,6 @@ $installer.Project.PropertyGroup[0].ProductVersion = $Version
 $installer.Project.PropertyGroup[1].DefineConstants = "Debug;HarvestPath=$Path;ProductVersion=$Version"
 $installer.Project.PropertyGroup[2].DefineConstants = "HarvestPath=$Path;ProductVersion=$Version"
 $installer.Project.Target[0].HeatDirectory.Directory = $Path
-
-
-
-#$installer.ProductName = "$Product ($Version)"
 
 $installer.Save("$PSScriptRoot\build\installer.wixproj")
 
