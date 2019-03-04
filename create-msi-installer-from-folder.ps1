@@ -13,7 +13,8 @@ param(
   [string]$HelpLink = "http://www.example.com",
   [string]$AboutLink = "http://www.example.com",
   [string]$DownloadLink = "http://www.example.com",
-  [switch]$Desktop = $False
+  [switch]$Desktop = $False,
+  [string]$FileType = ""
 )
 
 function step{
@@ -60,7 +61,8 @@ $installer.Save("$PSScriptRoot\build\installer.wixproj")
 
 step -message "Creating Product.wxs"
 
-[xml]$productwxs = Get-Content "$PSScriptRoot\source\product.wxs"
+$productwxs = New-Object xml
+$productwxs.Load("$PSScriptRoot\source\product.wxs")
 
 $productwxs.Wix.Product.Name = $Product
 $productwxs.Wix.Product.Version = $Version
@@ -81,11 +83,11 @@ if($Desktop){
   $desktopDirectory.Component.Shortcut.Id = "DesktopShortcut_001"
   $desktopDirectory.Component.Id = "DesktopShortcut.lnk"
   $desktopDirectory.Id = "DesktopFolder"
-  $productwxs.Wix.Product.Directory.appendChild($desktopDirectory)
+  $productwxs.Wix.Product.Directory.appendChild($desktopDirectory) | Out-Null
 
   $desktopRef = $productwxs.Wix.Product.Feature.ComponentRef[1].Clone()
   $desktopRef.Id = "DesktopShortcut.lnk"
-  $productwxs.Wix.Product.Feature.appendChild($desktopRef)
+  $productwxs.Wix.Product.Feature.appendChild($desktopRef) | Out-Null
 }
 
 $productwxs.Wix.Product.Icon.SourceFile = "$Path\$Executable"
@@ -96,6 +98,22 @@ $productwxs.Wix.Product.Property[0].Value = $Contact
 $productwxs.Wix.Product.Property[1].Value = $HelpLink
 $productwxs.Wix.Product.Property[3].Value = $AboutLink
 $productwxs.Wix.Product.Property[4].Value = $DownloadLink
+
+if($FileType){
+  Write-Host "Associating $FileType with $Product"
+  [xml]$assocDoc = Get-Content "$PSScriptRoot\source\filetype.wsx"
+  $assoc = $assocDoc.Wix
+
+  $productName = ($Product -replace '\s','') + "File"
+
+  $assoc.ProgId.Id = $productName
+  $assoc.ProgId.Description = $Product
+  $assoc.ProgId.Extension.Id = $FileType
+
+  $appendable = $productwxs.ImportNode($assoc, $True)
+
+  $productwxs.Wix.Product.Directory.Directory[0].Directory.Component.appendChild($appendable.ProgId) | Out-Null
+}
 
 $productwxs.Save("$PSScriptRoot\build\product.wxs")
 

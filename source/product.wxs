@@ -31,15 +31,6 @@
                 <Directory Id="INSTALLDIR" Name="$(var.ProductName)">
                     <Component Id="App.exe">
                         <File Id="Executable.exe" Source="" KeyPath="yes" />
-
-                        <!-- This file association has been commented out because Scratch Desktop doesn't support it yet.
-                        <ProgId Id="ScratchProjectFile" Description="Scratch Project" Advertise="yes" Icon="Icons.exe" IconIndex="0">
-                            <Extension Id="sb3">
-                                <Verb Id="open" Command="Open" Sequence="1" Argument="&quot;%1&quot;" />
-                            </Extension>
-                        </ProgId>
-                        -->
-
                     </Component>
                 </Directory>
             </Directory>

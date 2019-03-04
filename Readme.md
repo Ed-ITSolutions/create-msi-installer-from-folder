@@ -26,6 +26,7 @@ To use this script you need the following tools installed on your machine:
 |AboutLink|No|http://www.example.com|Where can the user get more information about this product.|
 |DownloadLink|No|http://www.example.com|Where can the user download this app.|
 |Desktop|No|_false_|Set this flag if you would like a desktop shortcut to be created as well.|
+|FileType|No||Associate a file type with this product.|
 
 Create a new MSI for Scratch 3:
 ```
