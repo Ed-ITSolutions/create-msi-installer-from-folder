@@ -12,7 +12,8 @@ param(
   [string]$Contact = "System Administrator",
   [string]$HelpLink = "http://www.example.com",
   [string]$AboutLink = "http://www.example.com",
-  [string]$DownloadLink = "http://www.example.com"
+  [string]$DownloadLink = "http://www.example.com",
+  [boolean]$Desktop = $False
 )
 
 function step{
@@ -77,6 +78,20 @@ $productwxs.Wix.Product.Directory.Directory[1].Component.Shortcut.Description = 
 $productwxs.Wix.Product.Directory.Directory[1].Component.Shortcut.Target = "[INSTALLDIR]$Executable"
 $productwxs.Wix.Product.Directory.Directory[1].Component.RegistryValue.Key = "Software\$Product"
 
+if($Desktop){
+  Write-Host "Adding desktop shortcut"
+
+  $desktopDirectory = $productwxs.Wix.Product.Directory.Directory[1].Clone()
+  $desktopDirectory.Component.Shortcut.Id = "DesktopShortcut_001"
+  $desktopDirectory.Component.Id = "DesktopShortcut.lnk"
+  $desktopDirectory.Id = "DesktopFolder"
+  $productwxs.Wix.Product.Directory.appendChild($desktopDirectory)
+
+  $desktopRef = $productwxs.Wix.Product.Feature.ComponentRef[1].Clone()
+  $desktopRef.Id = "DesktopShortcut.lnk"
+  $productwxs.Wix.Product.Feature.appendChild($desktopRef)
+}
+
 $productwxs.Wix.Product.Icon.SourceFile = "$Path\$Executable"
 
 $productwxs.Wix.Product.Feature.Title = $Product
@@ -85,8 +100,6 @@ $productwxs.Wix.Product.Property[0].Value = $Contact
 $productwxs.Wix.Product.Property[1].Value = $HelpLink
 $productwxs.Wix.Product.Property[3].Value = $AboutLink
 $productwxs.Wix.Product.Property[4].Value = $DownloadLink
-
-
 
 $productwxs.Save("$PSScriptRoot\build\product.wxs")
 

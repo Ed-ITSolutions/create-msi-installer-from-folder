@@ -45,7 +45,7 @@
             </Directory>
 
             <Directory Id="ProgramMenuFolder">
-                <Component Id="Shortcut.lnk">
+                <Component Id="StartMenuShortcut.lnk">
                     <Condition><![CDATA[SHORTCUT=1]]></Condition>
 
                     <Shortcut Id="StartMenuShortcut_001"
@@ -74,7 +74,7 @@
                  Display="collapse">
 
                  <ComponentRef Id="App.exe" />
-                 <ComponentRef Id="Shortcut.lnk" />
+                 <ComponentRef Id="StartMenuShortcut.lnk" />
                  <ComponentGroupRef Id="HeatGenerated" />
         </Feature>
 
