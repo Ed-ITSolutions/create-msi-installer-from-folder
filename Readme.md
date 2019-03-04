@@ -38,3 +38,7 @@ During that process an upgrade GUID will have been outputed, when creating a new
 ```
 
 These commands will create `.\build\Deploy\Release\Scratch 3 Desktop (1.2.1).msi` and `.\build\Deploy\Release\Scratch 3 Desktop (1.2.2).msi`
+
+## Contributing
+
+We welcome pull requests and suggestions to this script.
