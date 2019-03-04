@@ -1,0 +1,3 @@
+wxs-files/*.wxs
+build/*
+!build/.gitkeep
