@@ -46,20 +46,6 @@
 				  <HintPath>$(WixExtDir)\WixUtilExtension.dll</HintPath>
 				  <Name>WixUtilExtension</Name>
 				</WixExtension>
-				<!--
-				<WixExtension Include="WixFirewallExtension">
-				  <HintPath>$(WixExtDir)\WixFirewallExtension.dll</HintPath>
-				  <Name>WixFirewallExtension</Name>
-				</WixExtension>
-				<WixExtension Include="WixIIsExtension">
-				  <HintPath>$(WixExtDir)\WixIIsExtension.dll</HintPath>
-				  <Name>WixIIsExtension</Name>
-				</WixExtension>
-				<WixExtension Include="WixNetFxExtension">
-				  <HintPath>$(WixExtDir)\WixNetFxExtension.dll</HintPath>
-				  <Name>WixNetFxExtension</Name>
-				</WixExtension>
-				-->
         </ItemGroup>
 
         <ItemGroup>

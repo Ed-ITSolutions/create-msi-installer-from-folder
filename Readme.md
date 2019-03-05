@@ -18,7 +18,7 @@ To use this script you need the following tools installed on your machine:
 |Path|Yes|Null|The folder to create the MSI from|
 |Product|Yes|Null|The name to give the product. Used for Program Files folder, Desktop/Start Menu shortcut & others.|
 |Version|Yes|Null|The Version to report to AD etc...|
-|Executable|Yes|Null|The name of the exe inside `Path`.|
+|Executable|Yes|Null|The name of the exe inside `Path`. e.g. `App.exe` or `bin\app.exe`|
 |UpgradeGUID|No|Generated at Runtime|Supply the UpgradeGUID that was outputted when you generated the first version of the MSI.|
 |Manufacturer|No|Ed-IT Solutions MSI Creator|The manufacturer to set.|
 |Contact|No|System Administrator|Who should the user contact for help.|
