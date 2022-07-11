@@ -13,7 +13,7 @@ param(
   [string]$HelpLink = "http://www.example.com",
   [string]$AboutLink = "http://www.example.com",
   [string]$DownloadLink = "http://www.example.com",
-  [switch]$Desktop = $False,
+  [switch]$Desktop = $True,
   [string]$FileType = ""
 )
 
