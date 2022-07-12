@@ -27,6 +27,7 @@ To use this script you need the following tools installed on your machine:
 |DownloadLink|No|http://www.example.com|Where can the user download this app.|
 |Desktop|No|_false_|Set this flag if you would like a desktop shortcut to be created as well.|
 |FileType|No||Associate a file type with this product. e.g. `docx`|
+|WorkingDirectory|No|`$PSScriptRoot`|The directory to use for building,caching and output.|
 
 Create a new MSI for Scratch 3:
 ```

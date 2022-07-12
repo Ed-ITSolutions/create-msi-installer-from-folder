@@ -14,8 +14,11 @@ param(
   [string]$AboutLink = "http://www.example.com",
   [string]$DownloadLink = "http://www.example.com",
   [switch]$Desktop = $False,
-  [string]$FileType = ""
+  [string]$FileType = "",
+  [string]$WorkingDirectory = $PSScriptRoot
 )
+
+New-Item -Path "$WorkingDirectory\build" -ItemType Directory
 
 function step{
   param(
@@ -61,7 +64,7 @@ $installer.Project.Target[0].HeatDirectory.Directory = $Path
 
 Write-Host "Saving to .\build"
 
-$installer.Save("$PSScriptRoot\build\installer.wixproj")
+$installer.Save("$WorkingDirectory\build\installer.wixproj")
 
 step -message "Creating Product.wxs"
 
@@ -152,7 +155,7 @@ if($FileType){
 
 Write-Host "Saving to .\build"
 
-$productwxs.Save("$PSScriptRoot\build\product.wxs")
+$productwxs.Save("$WorkingDirectory\build\product.wxs")
 
 step -message "Create Transform"
 
@@ -162,14 +165,14 @@ $exe = Split-Path -Path "$Path\$Executable" -Leaf -Resolve
 
 $transform.stylesheet.key.match = "wix:Component[contains(wix:File/@Source, '$exe')]"
 
-$transform.Save("$PSScriptRoot\build\transform.xslt")
+$transform.Save("$WorkingDirectory\build\transform.xslt")
 
 step -message "Running WIX"
 
-& "C:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe" "$PSScriptRoot\build\installer.wixproj"
+& "C:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe" "$WorkingDirectory\build\installer.wixproj"
 
 step -message "Complete!"
 
 Write-Host "Your MSI Has been built."
-Write-Host "Find it at $PSScriptRoot\build\Deploy\Release\$Product ($Version).msi"
+Write-Host "Find it at $WorkingDirectory\build\Deploy\Release\$Product ($Version).msi"
 Write-Host "Your Upgrade GUID is $UpgradeGUID"
